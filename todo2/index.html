@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>To-Do List Schedule Planner</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+<body>
+    <h1>To-Do List Schedule Planner</h1>
+    <form method="post" action="test.php">
+        <label for="taskName">Task Name:</label>
+        <input type="text" name="taskName" id="taskName"><br>
+
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="date" required><br><br>
+
+        <label for="priority">Priority</label>
+        <select id="priority" name="priority">
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+        </select><br><br>
+
+        <input type="submit" value="Submit">
+    </form>
+    <table id="taskList">
+        <tr>
+          <th>Name</th>
+          <th>Date</th>
+          <th>Priority</th>
+        </tr>
+    </table>
+    <script>
+ 
+        function fetchTasks() {
+          var xhttp = new XMLHttpRequest();
+    
+          xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+              var tasks = JSON.parse(this.responseText);
+            }
+          };
+    
+          xhttp.open("GET", "getdata.php", true);
+          xhttp.send();
+        }
+    
+        window.onload = function() {
+            fetchTasks();
+        };
+      </script>
+    
+    <div id="task-list"></div>
+    
+</body>
+</html>
